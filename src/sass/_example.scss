@@ -1,6 +1,5 @@
 body {
-  background-color: #82cfd3;
-  background-image: url(../images/Body.jpg);
+  background-color: #2f303a;
 }
 
 h1,
@@ -24,7 +23,6 @@ img {
   padding-top: 5vw;
   padding-bottom: 10vw;
   text-align: center;
-  background-color: #a98abe;
 }
 
 .hero-titel {
@@ -37,11 +35,12 @@ img {
   text-align: center;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: white;
 }
 
 .input {
   margin-top: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   width: 600px;
   height: 50px;
   border: 1px solid rgba(33, 33, 33, 0.2);
@@ -62,9 +61,11 @@ img {
 .card__country-box {
   margin: 0 auto;
   padding: 10px 10px;
-  border: solid #000;
+  border: 1px solid #2196f3;
   width: 600px;
   text-align: left;
+  background-color: white;
+  border-radius: 6px;
 }
 
 .card__title {
@@ -77,6 +78,7 @@ img {
 .card__thumb {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .card__desc {
@@ -105,6 +107,7 @@ img {
   line-height: 1.87;
   letter-spacing: 0.06em;
   background-color: rgb(195, 55, 43);
+  color: white;
   cursor: pointer;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
@@ -120,9 +123,17 @@ img {
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
+  color: white;
+}
+.list-c:hover {
+  color: #2196f3;
 }
 
 .clue {
   color: green;
   margin-bottom: 15px;
+}
+
+.card__img {
+  border: 1px solid;
 }

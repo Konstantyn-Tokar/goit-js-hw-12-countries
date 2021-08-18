@@ -17,6 +17,7 @@ const refs = {
 
 refs.resetBtn.addEventListener('click', clearAll);
 refs.inputCountry.addEventListener('input', debounce(onInput, 500));
+let dtnIsActiv = false;
 
 function onInput(e) {
   if (e.target.value !== '') {
@@ -27,11 +28,16 @@ function onInput(e) {
         errorServerMessage();
       });
   }
+  if (e.target.value === '') {
+    clearAll();
+  }
 }
 
 function doTheAnswer(countries) {
   if (countries.length === 1) {
+    refs.inputCountry.value = `${countries[0].name}`;
     createCardСountry(countries);
+    resetInput();
   }
   if (countries.length >= 2 && countries.length <= 10) {
     createCardList(countries);
@@ -50,7 +56,7 @@ function createCardСountry(countries) {
 
 function createCardList(countries) {
   refs.listCountry.innerHTML = listСountry(countries);
-  doS();
+  chooseСountry();
 }
 
 function errorServerMessage() {
@@ -86,6 +92,10 @@ function resetInput() {
 }
 
 function clearAll() {
+  if (refs.listCountry.innerHTML === '') {
+    return;
+  }
+  dtnIsActiv = true;
   refs.listCountry.innerHTML = '';
   refs.inputCountry.value = '';
 }
@@ -93,16 +103,17 @@ function clearAll() {
 //_______________________________________________________________________________
 // С списка стран можно выбрать какую нужно
 // Колхозно , могли бы вы посмотреть ?
-function doS() {
+function chooseСountry() {
   const ref = document.querySelector('ul#x');
-  ref.addEventListener('click', e => {
-    const y = e.target.innerHTML;
-    refs.inputCountry.value = y;
-    fetchCountries(y)
-      .then(r => doTheAnswer(r))
-      .catch(() => {
-        errorServerMessage();
-      });
-    resetInput();
-  });
+  ref.addEventListener('click', findCountryInformation);
+}
+
+function findCountryInformation(event) {
+  const countryFromTheList = event.target.innerHTML;
+  refs.inputCountry.value = countryFromTheList;
+  fetchCountries(countryFromTheList)
+    .then(r => doTheAnswer(r))
+    .catch(() => {
+      errorServerMessage();
+    });
 }
