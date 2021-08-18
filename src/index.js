@@ -18,21 +18,22 @@ const refs = {
 refs.resetBtn.addEventListener('click', clearAll);
 refs.inputCountry.addEventListener('input', debounce(onInput, 500));
 
+console.log('refs.list', refs.list);
+
 function onInput(e) {
-  const country = e.target.value;
-  fetchCountries(country)
-    .then(r => doTheAnswer(r))
-    .catch(() => {
-      if (e.target.value !== '') {
+  if (e.target.value !== '') {
+    const country = e.target.value;
+    fetchCountries(country)
+      .then(r => doTheAnswer(r))
+      .catch(() => {
         errorServerMessage();
-      }
-    });
+      });
+  }
 }
 
 function doTheAnswer(countries) {
   if (countries.length === 1) {
     createCardСountry(countries);
-    resetInput();
   }
   if (countries.length >= 2 && countries.length <= 10) {
     createCardList(countries);
@@ -54,6 +55,7 @@ function createCardСountry(countries) {
 
 function createCardList(countries) {
   refs.listCountry.innerHTML = listСountry(countries);
+  doS();
 }
 
 function errorServerMessage() {
@@ -91,4 +93,19 @@ function resetInput() {
 function clearAll() {
   refs.listCountry.innerHTML = '';
   refs.inputCountry.value = '';
+}
+
+// Сделал что бы с списка стран можно было выбрать каную нужно
+// Колхозно , могли бы вы посмотреть ?
+function doS() {
+  const ref = document.querySelector('ul#x');
+  ref.addEventListener('click', e => {
+    const y = e.target.innerHTML;
+    refs.inputCountry.value = y;
+    fetchCountries(y)
+      .then(r => doTheAnswer(r))
+      .catch(() => {
+        errorServerMessage();
+      });
+  });
 }
