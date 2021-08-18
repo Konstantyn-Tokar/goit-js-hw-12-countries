@@ -18,8 +18,6 @@ const refs = {
 refs.resetBtn.addEventListener('click', clearAll);
 refs.inputCountry.addEventListener('input', debounce(onInput, 500));
 
-console.log('refs.list', refs.list);
-
 function onInput(e) {
   if (e.target.value !== '') {
     const country = e.target.value;
@@ -42,12 +40,9 @@ function doTheAnswer(countries) {
     infoMessage();
   }
   if (countries.status === 404) {
-    resetInput();
     errorMessage();
   }
 }
-
-//написать функция отображающею ошибки
 
 function createCardСountry(countries) {
   refs.listCountry.innerHTML = сardСountry(countries);
@@ -87,7 +82,7 @@ function errorMessage() {
 function resetInput() {
   setTimeout(() => {
     refs.inputCountry.value = '';
-  }, 2000);
+  }, 1000);
 }
 
 function clearAll() {
@@ -95,7 +90,8 @@ function clearAll() {
   refs.inputCountry.value = '';
 }
 
-// Сделал что бы с списка стран можно было выбрать каную нужно
+//_______________________________________________________________________________
+// С списка стран можно выбрать какую нужно
 // Колхозно , могли бы вы посмотреть ?
 function doS() {
   const ref = document.querySelector('ul#x');
@@ -107,5 +103,6 @@ function doS() {
       .catch(() => {
         errorServerMessage();
       });
+    resetInput();
   });
 }
