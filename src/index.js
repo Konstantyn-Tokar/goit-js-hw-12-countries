@@ -1,17 +1,17 @@
 console.log('Привет, Костя, у тебя всё получиться 😊');
 console.log('Ukraine');
+const debounce = require('lodash.debounce');
 
 //создать рефы
 const refs = {
   inputCountry: document.querySelector('#country-name'),
   listCountry: document.querySelector('#country-list'),
 };
-
 console.log(refs.listCountry);
 console.log(refs.inputCountry);
 
 //повесить на инпут слушатель (input)
-refs.inputCountry.addEventListener('input', showСountries);
+refs.inputCountry.addEventListener('input', debounce(showСountries, 5000));
 
 // console.log(input);
 
