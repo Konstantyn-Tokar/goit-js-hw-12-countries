@@ -16,12 +16,21 @@ img {
   display: block;
 }
 
-.hero {
+.hero,
+.head {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1180px;
   height: 1000px;
   padding-top: 5vw;
   padding-bottom: 10vw;
+  text-align: center;
+}
+
+.head {
+  height: 70px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-image: url(../images/flag_word-1.png);
   text-align: center;
 }
 
