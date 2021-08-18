@@ -1,53 +1,44 @@
-console.log('Привет, Костя, у тебя всё получиться 😊');
-console.log('Ukraine');
+import './sass/main.scss';
 import fetchCountries from './fetchCountries';
-import countryListMarkup from './templates/countriesList.hbs';
-import сardСountryMarkup from './templates/сardСountry.hbs';
+import listСountry from './templates/countriesList.hbs';
+import сardСountry from './templates/сardСountry.hbs';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/desktop/dist/PNotifyDesktop';
 import '@pnotify/core/dist/BrightTheme.css';
-import { alert, notice, info, success, error } from '@pnotify/core';
+import { info, error } from '@pnotify/core';
 
-// error({
-//   title: `Too many matches found.`,
-//   text: `We found  countries. Please enter a more specific query!`,
-//   styling: 'brighttheme',
-//   delay: 2000,
-// });
 const debounce = require('lodash.debounce');
-//добавил debounce
 
-//создать рефы
 const refs = {
   inputCountry: document.querySelector('#country-name'),
   listCountry: document.querySelector('#country-list'),
+  resetBtn: document.querySelector('.clear-button'),
 };
 
-//повесить на инпут слушатель (input)
+refs.resetBtn.addEventListener('click', clearAll);
 refs.inputCountry.addEventListener('input', debounce(onInput, 500));
-//написать функцию которая ходит на сервер и забирает список стран
+
 function onInput(e) {
   const country = e.target.value;
   fetchCountries(country)
     .then(r => doTheAnswer(r))
-    .catch(() => errorServerMessage());
+    .catch(() => {
+      if (e.target.value !== '') {
+        errorServerMessage();
+      }
+    });
 }
-
-//написать функция рендеринга HTML при .then
 
 function doTheAnswer(countries) {
   if (countries.length === 1) {
-    refs.listCountry.innerHTML = сardСountryMarkup(countries);
+    createCardСountry(countries);
+    resetInput();
   }
   if (countries.length >= 2 && countries.length <= 10) {
-    refs.listCountry.innerHTML = countryListMarkup(countries);
+    createCardList(countries);
   }
   if (countries.length > 10) {
-    info({
-      title: 'Внимание',
-      text: 'Пожалуйста, введите более конкретный запрос!',
-      delay: 2000,
-    });
+    infoMessage();
   }
   if (countries.status === 404) {
     resetInput();
@@ -57,11 +48,27 @@ function doTheAnswer(countries) {
 
 //написать функция отображающею ошибки
 
+function createCardСountry(countries) {
+  refs.listCountry.innerHTML = сardСountry(countries);
+}
+
+function createCardList(countries) {
+  refs.listCountry.innerHTML = listСountry(countries);
+}
+
 function errorServerMessage() {
   refs.listCountry.innerHTML = '';
   error({
     title: 'Ошибка',
-    text: 'Проблемы с сервером , повоторите попЫтку позже',
+    text: 'Проблемы с сервером , повоторите попытку позже',
+    delay: 2000,
+  });
+}
+
+function infoMessage() {
+  info({
+    title: 'Внимание',
+    text: 'Пожалуйста, введите более конкретный запрос!',
     delay: 2000,
   });
 }
@@ -79,4 +86,9 @@ function resetInput() {
   setTimeout(() => {
     refs.inputCountry.value = '';
   }, 2000);
+}
+
+function clearAll() {
+  refs.listCountry.innerHTML = '';
+  refs.inputCountry.value = '';
 }

@@ -5,16 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+      integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <h1>Информация о странах </h1>
-    <div>
-      <input type="text" placeholder="Название страны" id="country-name" />
-      <div id="country-list">
-
+    <section class="hero">
+      <h1 class="hero-titel">Country information</h1>
+      <div>
+        <input class="input" type="text" placeholder="Enter country name" id="country-name" />
+        <div class="country-box" id="country-list"></div>
       </div>
-    </div>
-    </div>
+
+      <button class="clear-button">Clear</button>
+    </section>
     <script src="./index.js"></script>
   </body>
 </html>
