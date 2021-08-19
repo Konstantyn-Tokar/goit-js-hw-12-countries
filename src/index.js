@@ -92,7 +92,8 @@ function resetInput() {
 }
 
 function clearAll() {
-  if (refs.listCountry.innerHTML === '') {
+  if (refs.listCountry.innerHTML === ''
+    && refs.inputCountry.value === '') {
     return;
   }
   dtnIsActiv = true;
